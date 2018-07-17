@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	</head>
+	<body>
+		<div id="main">
+			<div id="head">
+				<div id="h_content" v-bind:style="{width:width}" v-on:resize="changeWidth">
+					<div id="logo"><p>编程猫</p></div>
+					<ul class="blocks">
+						
+						<template v-for="it in items"><headblock :value="it"></headblock></template>
+					</ul>
+					<ul id="right">
+						<li id="message"></li>
+						<li id="photo"><img src="img/user_0002.png"></li>
+						<li id="work" style="height: 110%;"><p>创作</p></li>
+					</ul>
+				</div>
+			</div>
+			<div id="carrousel">
+				
+				<transition-group tag="ul"  name="list">
+					<li  v-for="(it,index) in items"  v-show="index===mark" :key="index"><img :src="it"style="width: 100%;height: 100%;"/></li>
+				</transition-group>
+				<div class="con_cir">
+					<template v-for="(it, index) in items">
+						<div v-bind:class="{cir:mark!=index,long:mark===index}" v-on:click="mark=index"></div>
+					</template>
+					
+				</div>
+				<div id="butn" style="left: 16%;" v-on:click="sub"><p><</P></div>
+				<div id="butn" style="left: 84%;" v-on:click="add"><p>></P></div>
+			</div>
+			<div id="content">
+				<div id="up_content">
+					<IDE></IDE>
+					<IDE></IDE>
+					<IDE></IDE>
+				</div>
+				<div id="zuopin">
+					<div id="title">
+						<img src="img/zuopin.png" />
+						<h2 style="margin-top: 6px;">作品</h2>
+						<div id="change">
+							<p :class="{all:isall,half:ishalf}" @click="left">源码编辑器</p><p :class="{all:ishalf,half:isall}" @click="right">代码岛作品</p>
+						</div>
+					</div>
+					<div class="box">
+						<div class="box_up"><span>点猫精选<span/></div>
+						<div class="box_down">
+							<div class="product" v-for="it in items">
+								<div class="pro_img"><img :src="it.src"/></div>
+								<div class="name">{{it.name}}</div>
+								<div class="author">{{it.author}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="foot"></div>
+		</div>	
+	</body>
+	<script src="js/vue_index.js"></script>
+</html>
